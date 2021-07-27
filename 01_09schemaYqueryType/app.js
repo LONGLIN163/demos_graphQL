@@ -55,7 +55,7 @@ const root = {
     return 'Hello world!';
   },
   haha: () => {
-    return 456;
+    return 4567;
   },
   user: () => {
     return  {
