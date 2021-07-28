@@ -10,15 +10,141 @@
     <h1>graphql demo</h1>
     <script src="./node_modules/axios/dist/axios.js"></script>
     <script>
+        // axios({
+        //     method:"POST", // ***********GraphQL req method must be POST************
+        //     url:"http://localhost:4000/graphql",
+        //     data:{
+        //         query:`
+        //         {
+        //             articles {
+        //                 title
+        //             }
+        //         }
+        //         or
+        //         query getArticles{
+        //             articles {
+        //                 title
+        //             }
+        //         }
+                
+        //         `
+        //     }
+        // }).then((res) => {
+        //     console.log(res.data)
+        // })
+
+        // query article by id-1
+        // const id=2;
+        // axios({
+        //     method:"POST", // GraphQL req method must be POST
+        //     url:"http://localhost:4000/graphql",
+        //     data:{
+        //         query:`
+        //         query getArticles{
+        //             article(id:${id}) {
+        //                 id,
+        //                 title,
+        //                 body
+        //             }
+        //         }
+        //         `
+        //     }
+        // }).then((res) => {
+        //     console.log(res.data)
+        // })
+
+        // query article by id-2
+        // axios({
+        //     method:"POST", // GraphQL req method must be POST
+        //     url:"http://localhost:4000/graphql",
+        //     data:{
+        //         query:`
+        //         query getArticles($id:ID!){ 
+        //             article(id:$id) {
+        //                 id,
+        //                 title,
+        //                 body
+        //             }
+        //         }
+        //       `,
+        //       variables:{
+        //           id:2
+        //       }
+        //     }
+        // }).then((res) => {
+        //     console.log(res.data)
+        // })
+
+        // create article
+        // axios({
+        //     method:"POST", // GraphQL req method must be POST
+        //     url:"http://localhost:4000/graphql",
+        //     data:{
+        //         query:`
+        //         mutation createArticle($article:CreateArticleInput!){ 
+        //             createArticle(article:$article) {
+        //                 id,
+        //                 title,
+        //                 body
+        //             }
+        //         }
+        //       `,
+        //       variables:{
+        //         article:{
+        //             title:"xixi",
+        //             body:"haha"
+        //         }
+        //       }
+        //     }
+        // }).then((res) => {
+        //     console.log(res.data)
+        // })
+
+        // update article
+        // axios({
+        //     method:"POST", // GraphQL req method must be POST
+        //     url:"http://localhost:4000/graphql",
+        //     data:{
+        //         query:`
+        //         mutation updateArticle($id:ID!,$article:UpdateArticleInput!){ 
+        //             updateArticle(id:$id,article:$article) {
+        //                 id,
+        //                 title,
+        //                 body
+        //             }
+        //         }
+        //       `,
+        //       variables:{
+        //         id:2,
+        //         article:{
+        //             title:"wokao",
+        //             body:"trytrysee......."
+        //         }
+        //       }
+        //     }
+        // }).then((res) => {
+        //     console.log(res.data)
+        // })
+
+        // delete article
         axios({
-            method:"POST",
+            method:"POST", // GraphQL req method must be POST
             url:"http://localhost:4000/graphql",
             data:{
-                query:'{xixi, haha}'
+                query:`
+                mutation delArticle($id:ID!){ 
+                    delArticle(id:$id) {
+                        success
+                    }
+                }
+              `,
+              variables:{
+                id:2
+              }
             }
         }).then((res) => {
-            console.log(res)
+            console.log(res.data)
         })
-    </script>
+    </script> 
 </body>
 </html>
