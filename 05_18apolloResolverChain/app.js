@@ -44,38 +44,38 @@ const books = [
     title: 'City of Glass',
     author: 'Paul Auster',
     branch: 'downtown'
-  },
+  }
 ];
 
-const resolvers = {
+// ******all resolvers will be excuted by order, pass the returned value to next resolver by param "parent"******
+const resolvers = { 
   Query: {
-    libraries() {
-
+    libraries(parent,args,context) {
+      console.log("context---",context)
       // Return our hardcoded array of libraries
       return libraries;
     }
   },
   Library: {
     books(parent) { //parent 是上一步的解析结果
-      console.log("books---parent---",parent)
+      console.log("books---parent---",parent) 
       // Filter the hardcoded array of books to only include
       // books that are located at the correct branch
       return books.filter(book => book.branch === parent.branch);
     }
   },
   Book: {
-
     // The parent resolver (Library.books) returns an object with the
     // author's name in the "author" field. Return a JSON object containing
     // the name, because this field expects an object.
-    author(parent) { //parent 是上一步的解析结果
+    author(parent,args,context) { //parent 是上一步的解析结果
+      console.log("context2---",context)
       console.log("author---parent---",parent)
       return {
         name: parent.author
       };
     }
   }
-
   // Because Book.author returns an object with a "name" field,
   // Apollo Server's default resolver for Author.name will work.
   // We don't need to define one.
@@ -87,6 +87,12 @@ async function startApolloServer() {
   const server = new ApolloServer({
     typeDefs,
     resolvers,
+    //All of the graphql requests will pass here!
+    context(req){
+       return { // return an obj and custom data, resolvers can get it directly
+         data:"haha"
+       }
+    }
   });
   await server.start();
 
